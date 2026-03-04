@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198668184911",
+    "project_id": "explorex-e052d",
+    "storage_bucket": "explorex-e052d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198668184911:android:22e25a9a0156d14517e93a",
+        "android_client_info": {
+          "package_name": "com.example.explore_x"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCakaNu9PZYqAWGZ-k7vC4zk3_FHlZPYDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
