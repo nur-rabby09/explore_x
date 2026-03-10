@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
 
 final places = [
-  {
-    'name': "Cox's Bazar",
-    'tagline': "World's Longest Sea Beach",
-    'img': 'assets/images/coxsbazar.jpg',
-  },
-  {
-    'name': "Bandarban",
-    'tagline': "Land of Hills and Tribes",
-    'img': 'assets/images/bandarban.jpg',
-  },
-  {
-    'name': "Sylhet",
-    'tagline': "Kingdom of Tea and Mist",
-    'img': 'assets/images/sylhet.jpg',
-  },
-  {
-    'name': "Saint Martin",
-    'tagline': "Bangladesh's Only Coral Island",
-    'img': 'assets/images/saintmartin.jpg',
-  },
-  {
-    'name': "Srimongal",
-    'tagline': "Tea Capital of Bangladesh",
-    'img': 'assets/images/srimongal.jpg',
-  },
+  {'name': "Cox's Bazar",  'tagline': "World's Longest Sea Beach",     'img': 'assets/images/coxsbazar.jpg'},
+  {'name': "Bandarban",    'tagline': "Land of Hills and Tribes",       'img': 'assets/images/bandarban.jpg'},
+  {'name': "Sylhet",       'tagline': "Kingdom of Tea and Mist",        'img': 'assets/images/sylhet.jpg'},
+  {'name': "Saint Martin", 'tagline': "Bangladesh's Only Coral Island", 'img': 'assets/images/saintmartin.jpg'},
+  {'name': "Srimongal",    'tagline': "Tea Capital of Bangladesh",      'img': 'assets/images/srimongal.jpg'},
 ];
 
 class MainPage extends StatefulWidget {
@@ -35,8 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-
-  final pages = [HomePage(), ArticlesPage(), FavoritesPage(), MorePage()];
+  final pages = [HomePage(), BookingPage(), AccountWallet(), MorePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +28,9 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Articles'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home),     label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.article),  label: 'Book Now'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'TripPay'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'More'),
         ],
       ),
@@ -70,41 +46,33 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'ExploreX',
-          style: TextStyle(
-            color: Colors.green,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
+        title: Text('ExploreX', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 22)),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Hello, Vanessa!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Where to next?',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
+            Text('Hello, Vanessa!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text('Where to next?',  style: TextStyle(fontSize: 14, color: Colors.grey)),
             SizedBox(height: 20),
-            Text(
-              'Discover Places',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 12),
-            ...places.map(
-              (p) => DestinationCard(
-                name: p['name']!,
-                tagline: p['tagline']!,
-                imagePath: p['img']!,
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search destinations...',
+                  prefixIcon: Icon(Icons.search),
+                  border: InputBorder.none,
+                ),
               ),
             ),
+            SizedBox(height: 20),
+            Text('Discover Places', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 12),
+            ...places.map((p) => DestinationCard(name: p['name']!, tagline: p['tagline']!, imagePath: p['img']!)),
           ],
         ),
       ),
@@ -114,22 +82,13 @@ class HomePage extends StatelessWidget {
 
 class DestinationCard extends StatelessWidget {
   final String name, tagline, imagePath;
-  DestinationCard({
-    required this.name,
-    required this.tagline,
-    required this.imagePath,
-  });
+  DestinationCard({required this.name, required this.tagline, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) =>
-              DetailPage(name: name, tagline: tagline, imagePath: imagePath),
-        ),
-      ),
+      onTap: () => Navigator.push(context, MaterialPageRoute(
+          builder: (_) => DetailPage(name: name, tagline: tagline, imagePath: imagePath))),
       child: Container(
         width: double.infinity,
         height: 180,
@@ -137,12 +96,9 @@ class DestinationCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.35),
-              BlendMode.darken,
-            ),
+              image: AssetImage(imagePath),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken)
           ),
         ),
         child: Padding(
@@ -151,19 +107,9 @@ class DestinationCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(name,    style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 4),
-              Text(
-                tagline,
-                style: TextStyle(color: Colors.white70, fontSize: 13),
-              ),
+              Text(tagline, style: TextStyle(color: Colors.white70, fontSize: 13)),
             ],
           ),
         ),
@@ -174,20 +120,12 @@ class DestinationCard extends StatelessWidget {
 
 class DetailPage extends StatelessWidget {
   final String name, tagline, imagePath;
-  DetailPage({
-    required this.name,
-    required this.tagline,
-    required this.imagePath,
-  });
+  DetailPage({required this.name, required this.tagline, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(name),
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: Text(name), backgroundColor: Colors.green, foregroundColor: Colors.white),
       body: Column(
         children: [
           Container(
@@ -196,10 +134,7 @@ class DetailPage extends StatelessWidget {
             child: Image.asset(imagePath, fit: BoxFit.cover),
           ),
           SizedBox(height: 24),
-          Text(
-            name,
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-          ),
+          Text(name,    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           Text(tagline, style: TextStyle(fontSize: 16, color: Colors.grey)),
           SizedBox(height: 40),
@@ -207,18 +142,8 @@ class DetailPage extends StatelessWidget {
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'Go Back',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
+              decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(12)),
+              child: Text('Go Back', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
             ),
           ),
         ],
@@ -227,60 +152,30 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class ArticlesPage extends StatelessWidget {
+class BookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'Articles',
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-        ),
+        title: Text('Booking Page', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.article, size: 80, color: Colors.grey[300]),
-            SizedBox(height: 16),
-            Text(
-              'No articles yet',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
+      body: Container(),
     );
   }
 }
 
-class FavoritesPage extends StatelessWidget {
+class AccountWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'Favorites',
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-        ),
+        title: Text('Account Wallet', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.favorite, size: 80, color: Colors.grey[300]),
-            SizedBox(height: 16),
-            Text(
-              'No favorites yet',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
+      body: Container(),
     );
   }
 }
@@ -292,24 +187,9 @@ class MorePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'More',
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-        ),
+        title: Text('More', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.settings, size: 80, color: Colors.grey[300]),
-            SizedBox(height: 16),
-            Text(
-              'Coming soon',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
+      body: Container(),
     );
   }
 }
