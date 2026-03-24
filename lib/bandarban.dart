@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SaintMartinPage extends StatelessWidget {
+class BandarbanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,12 +13,12 @@ class SaintMartinPage extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  width: double.infinity,
+                  width: 500,
                   height: 280,
-                  child: Image.asset('assets/images/saintmartin.jpg', fit: BoxFit.cover),
+                  child: Image.asset('assets/images/bandarban.jpg', fit: BoxFit.cover),
                 ),
                 Positioned(
-                  top: 50, left: 16,
+                  top: 50, left: 18,
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Container(
@@ -29,7 +29,7 @@ class SaintMartinPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 50, right: 16,
+                  top: 50, right: 18,
                   child: Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -45,30 +45,30 @@ class SaintMartinPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  Text('Saint Martin', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+                  Text('Bandarban', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
                   SizedBox(height: 10),
 
                   GestureDetector(
                     onTap: () async {
-                      final url = Uri.parse("https://maps.google.com/?q=Saint+Martin+Island,Bangladesh");
+                      final url = Uri.parse("https://maps.google.com/?q=Bandarban,Bangladesh");
                       await launchUrl(url);
                     },
                     child: Row(
                       children: [
                         Icon(Icons.location_on, color: Colors.green, size: 20),
                         SizedBox(width: 4),
-                        Text('Bangladesh', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 15)),
+                        Text('Location', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 15)),
                       ],
                     ),
                   ),
 
                   SizedBox(height: 16),
                   Text(
-                    "Saint Martin is the only coral island in Bangladesh, located in the northeastern part of the Bay of Bengal. It is famous for its crystal clear water, coral reefs, and coconut trees.",
+                    "Bandarban is a hilly district in southeastern Bangladesh, home to several indigenous communities. It boasts some of the highest peaks in Bangladesh, dense forests, and stunning waterfalls.",
                     style: TextStyle(fontSize: 15, color: Colors.grey[700], height: 1.5),
                   ),
                   SizedBox(height: 20),
-                  Text('Explore In Saint Martin', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Explore In Bandarban', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   SizedBox(height: 12),
 
                 ],
@@ -80,13 +80,14 @@ class SaintMartinPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  SpotCard(name: 'Cheradwip', imagePath: 'assets/images/spots/saintmartin/cheradwip.jpg'),
-                  SpotCard(name: 'Coral',     imagePath: 'assets/images/spots/saintmartin/coral.jpg'),
+                  SpotCard(name: 'Nilachal',  imagePath: 'assets/images/spots/bandarban/nilachal.jpg'),
+                  SpotCard(name: 'Nilgiri',   imagePath: 'assets/images/spots/bandarban/nilgiri.jpg'),
+                  SpotCard(name: 'Sangu',     imagePath: 'assets/images/spots/bandarban/sangu.jpg'),
+                  SpotCard(name: 'Boga Lake', imagePath: 'assets/images/spots/bandarban/bogalake.jpg'),
+                  SpotCard(name: 'Nafakhum',  imagePath: 'assets/images/spots/bandarban/nafakhum.jpg'),
                 ],
               ),
             ),
-
-            SizedBox(height: 30),
           ],
         ),
       ),
