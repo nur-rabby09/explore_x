@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'coxsbazar.dart';
+import 'sylhet.dart';
+import 'chittagong.dart';
+import 'bandarban.dart';
+import 'khagrachari.dart';
+import 'saintmartin.dart';
+import 'srimongal.dart';
 
 final places = [
   {'name': "Cox's Bazar",  'tagline': "World's Longest Sea Beach",     'img': 'assets/images/coxsbazar.jpg'},
@@ -15,23 +22,24 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  final pages = [HomePage(), BookingPage(), AccountWallet(), MorePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      body: HomePage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() => currentIndex = i),
+        onTap: (i) {
+          if (i == 0) setState(() => currentIndex = i);
+        },
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home),     label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.article),  label: 'Book Now'),
+          BottomNavigationBarItem(icon: Icon(Icons.home),                   label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.article),                label: 'Book Now'),
           BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'TripPay'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'More'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings),               label: 'More'),
         ],
       ),
     );
@@ -57,10 +65,7 @@ class HomePage extends StatelessWidget {
             Text('Where to next?',  style: TextStyle(fontSize: 14, color: Colors.grey)),
             SizedBox(height: 20),
             Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search destinations...',
@@ -87,18 +92,33 @@ class DestinationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(
-          builder: (_) => DetailPage(name: name, tagline: tagline, imagePath: imagePath))),
+      onTap: () {
+        if (name == "Cox's Bazar") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => CoxsBazarPage()));
+        } else if (name == "Sylhet") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => SylhetPage()));
+        } else if (name == "Bandarban") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => BandarbanPage()));
+        } else if (name == "Khagrachari") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => KhagrachariPage()));
+        } else if (name == "Saint Martin") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => SaintMartinPage()));
+        } else if (name == "Srimongal") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => SrimongalPage()));
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => DetailPage(name: name, tagline: tagline, imagePath: imagePath)));
+        }
+      },
       child: Container(
         width: double.infinity,
         height: 180,
-        margin: EdgeInsets.only(bottom: 16),
+        margin: EdgeInsets.only(bottom: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken)
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken),
           ),
         ),
         child: Padding(
@@ -148,48 +168,6 @@ class DetailPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class BookingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Booking Page', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
-      ),
-      body: Container(),
-    );
-  }
-}
-
-class AccountWallet extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Account Wallet', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
-      ),
-      body: Container(),
-    );
-  }
-}
-
-class MorePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('More', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
-      ),
-      body: Container(),
     );
   }
 }
