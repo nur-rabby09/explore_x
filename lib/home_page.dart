@@ -6,6 +6,7 @@ import 'bandarban.dart';
 import 'khagrachari.dart';
 import 'saintmartin.dart';
 import 'srimongal.dart';
+import 'tour_wallet.dart';
 
 final places = [
   {'name': "Cox's Bazar",  'tagline': "World's Longest Sea Beach",     'img': 'assets/images/coxsbazar.jpg'},
@@ -22,15 +23,20 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
+  List<TourPlan> tourPlans = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomePage(),
+      body: currentIndex == 2 ? TourWalletPage(tourPlans: tourPlans, onAdd: (plan) {
+        setState(() {
+          tourPlans.add(plan);
+        });
+      }) : HomePage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) {
-          if (i == 0) setState(() => currentIndex = i);
+          if (i == 0 || i == 2) setState(() => currentIndex = i);
         },
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
@@ -38,7 +44,7 @@ class _MainPageState extends State<MainPage> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),                   label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.article),                label: 'Book Now'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'TripPay'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Tour Wallet'),
           BottomNavigationBarItem(icon: Icon(Icons.settings),               label: 'More'),
         ],
       ),
