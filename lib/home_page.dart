@@ -7,6 +7,7 @@ import 'khagrachari.dart';
 import 'saintmartin.dart';
 import 'srimongal.dart';
 import 'tour_wallet.dart';
+import 'tour_plan.dart';
 
 final places = [
   {'name': "Cox's Bazar",  'tagline': "World's Longest Sea Beach",     'img': 'assets/images/coxsbazar.jpg'},
