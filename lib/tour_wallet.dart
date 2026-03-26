@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-
-class TourPlan {
-  String destination;
-  String groupBudget;
-  List<String> people;
-  TourPlan({required this.destination, required this.groupBudget, required this.people});
-}
+import 'tour_plan.dart';
+import 'tour_detail_page.dart';
 
 class TourWalletPage extends StatefulWidget {
   final List<TourPlan> tourPlans;
@@ -134,7 +129,16 @@ class _TourWalletPageState extends State<TourWalletPage> {
         itemCount: widget.tourPlans.length,
         itemBuilder: (context, index) {
           TourPlan plan = widget.tourPlans[index];
-          return Container(
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TourDetailPage(plan: plan),
+                ),
+              );
+            },
+            child: Container(
             margin: EdgeInsets.only(bottom: 14),
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
@@ -147,6 +151,7 @@ class _TourWalletPageState extends State<TourWalletPage> {
                 SizedBox(height: 6),
                 Text('People: ${plan.people.join(', ')}', style: TextStyle(color: Colors.grey[700])),
               ],
+            ),
             ),
           );
         },
