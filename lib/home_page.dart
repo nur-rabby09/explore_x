@@ -16,6 +16,8 @@ final places = [
   {'name': "Sylhet",       'tagline': "Kingdom of Tea and Mist",        'img': 'assets/images/sylhet.jpg'},
   {'name': "Saint Martin", 'tagline': "Bangladesh's Only Coral Island", 'img': 'assets/images/saintmartin.jpg'},
   {'name': "Srimongal",    'tagline': "Tea Capital of Bangladesh",      'img': 'assets/images/srimongal.jpg'},
+  {'name': "Khagrachari",  'tagline': "A valley of hills, culture, and calm beauty", 'img':'assets/images/khagrachari.jpg'},
+  {'name': "Chittagong",  'tagline': "The port city of hills and sea.", 'img':'assets/images/chittagong.jpg'},
 ];
 
 class MainPage extends StatefulWidget {
@@ -118,8 +120,8 @@ class DestinationCard extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (_) => SaintMartinPage()));
         } else if (name == "Srimongal") {
           Navigator.push(context, MaterialPageRoute(builder: (_) => SrimongalPage()));
-        } else {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => DetailPage(name: name, tagline: tagline, imagePath: imagePath)));
+        } else if (name == "Chittagong") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => ChittagongPage()));
         }
       },
       child: Container(
