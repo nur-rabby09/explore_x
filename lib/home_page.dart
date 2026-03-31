@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bus_booking.dart';
 import 'coxsbazar.dart';
 import 'sylhet.dart';
 import 'chittagong.dart';
@@ -33,11 +34,16 @@ class _MainPageState extends State<MainPage> {
         setState(() {
           tourPlans.add(plan);
         });
-      }) : HomePage(),
+      })
+      : currentIndex == 1
+          ? BusBookingPage()
+      // : currentIndex == 3
+      //    ? AccoutPage();
+          : HomePage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) {
-          if (i == 0 || i == 2) setState(() => currentIndex = i);
+          if (i == 0 || i ==1 || i == 2 || i == 3) setState(() => currentIndex = i);
         },
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
