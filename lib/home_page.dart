@@ -39,8 +39,6 @@ class _MainPageState extends State<MainPage> {
       })
       : currentIndex == 1
           ? BusBookingPage()
-      // : currentIndex == 3
-      //    ? AccoutPage();
           : HomePage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
