@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'home_page.dart';
@@ -11,6 +13,38 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   bool _isHidden = true;
+  bool _isLoading = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() async{
+    setState(() {
+      _isLoading = true;
+    });
+
+    try{
+      await _auth.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+    password: _passwordController.text.trim(),
+    );
+
+      Navigator.pushAndRemoveUntil(// if ok navigaet to home page
+        context,
+        MaterialPageRoute(builder: (context) => MainPage()),
+            (route) => false,
+      );
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content : Text("Login Successfull")));
+    } on FirebaseAuthException catch (e){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content : Text(e.message ?? "Login Successfull")));
+    }finally{
+    setState(() {
+    _isLoading = false;
+    });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +72,7 @@ class _LogInScreenState extends State<LogInScreen> {
             const SizedBox(height: 40),
 
             TextField(// email textfiekd
+              controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -56,6 +91,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
 
             TextField(// password textfiekd
+              controller: _passwordController,
               obscureText: _isHidden,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -92,20 +128,12 @@ class _LogInScreenState extends State<LogInScreen> {
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(350, 57.5),
                   ),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainPage()),
-                        (route) => false,
-                  );
-                },
-                child: const Text(
-                    "Log In",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
+                onPressed: _isLoading ? null : _login,
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text(
+                  "Log In",
+                  style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

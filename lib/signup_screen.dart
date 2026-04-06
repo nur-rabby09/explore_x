@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -10,6 +11,51 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _hidePassword = true;
   bool _hideConfirmPassword = true;
+  bool _isLoading = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  void _signUp() async{
+    if(_passwordController.text.trim() != _confirmPasswordController.text.trim()){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Passwords Do Not Match")),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Account Created Successfully")),
+      );
+      Navigator.pop(context);
+
+    } on FirebaseAuthException catch (e) {
+  ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(content: Text(e.message ?? "Sign Up Failed")),
+  );
+  } finally {
+  setState(() {
+  _isLoading = false;
+  });
+  }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _firstNameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: "First Name",
@@ -50,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(width: 15),
                 Expanded(
                   child: TextField(
+                    controller: _lastNameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: "Last Name",
@@ -69,6 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(height: 20),
 
             TextField(
+              controller: _usernameController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: "User Name",
@@ -85,6 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(height: 20),
 
             TextField(
+              controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -103,6 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
             TextField(
+              controller: _passwordController,
               obscureText: _hidePassword,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -125,6 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
             TextField(
+              controller: _confirmPasswordController,
               obscureText: _hideConfirmPassword,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -151,8 +203,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(350, 57.5),
                 ),
-                onPressed: () {},
-                child: const Text(
+                onPressed: _isLoading ? null : _signUp,
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text(
                   "Create Account",
                   style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
