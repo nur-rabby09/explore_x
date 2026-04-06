@@ -162,9 +162,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
               ],
             ),
           ),
-
           SizedBox(height: 24),
-
           // Search Hotel Button
           ElevatedButton(
             onPressed: searchHotel,
@@ -176,7 +174,6 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
             ),
             child: Text('Search Hotel', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
-
         ],
       ),
     );

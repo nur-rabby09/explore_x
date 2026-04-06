@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hello, Vanessa!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text('Hello, Explorer!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             Text('Where to next?',  style: TextStyle(fontSize: 14, color: Colors.grey)),
             SizedBox(height: 20),
             Container(
@@ -151,36 +151,3 @@ class DestinationCard extends StatelessWidget {
   }
 }
 
-class DetailPage extends StatelessWidget {
-  final String name, tagline, imagePath;
-  DetailPage({required this.name, required this.tagline, required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(name), backgroundColor: Colors.green, foregroundColor: Colors.white),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 250,
-            child: Image.asset(imagePath, fit: BoxFit.cover),
-          ),
-          SizedBox(height: 24),
-          Text(name,    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
-          Text(tagline, style: TextStyle(fontSize: 16, color: Colors.grey)),
-          SizedBox(height: 40),
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-              decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(12)),
-              child: Text('Go Back', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
