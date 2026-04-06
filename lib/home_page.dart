@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'bus_booking.dart';
 import 'coxsbazar.dart';
 import 'sylhet.dart';
@@ -62,6 +63,8 @@ class _MainPageState extends State<MainPage> {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final firstName = user?.displayName ?? 'Explorer';
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -74,7 +77,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hello, Explorer!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text('Hello, $firstName!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             Text('Where to next?',  style: TextStyle(fontSize: 14, color: Colors.grey)),
             SizedBox(height: 20),
             Container(

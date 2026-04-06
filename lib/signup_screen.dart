@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'home_page.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -34,10 +34,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      await userCredential.user!.updateDisplayName(_firstNameController.text.trim());
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Account Created Successfully")),
