@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SaintMartinPage extends StatelessWidget {
+class SaintMartinPage extends StatefulWidget {
+  @override
+  State<SaintMartinPage> createState() => _SaintMartinPageState();
+}
+
+class _SaintMartinPageState extends State<SaintMartinPage> {
+  bool isFavorite = false;
+
+  final String description =
+      "Saint Martin is the only coral island in Bangladesh, located in the northeastern part of the Bay of Bengal. "
+      "It is famous for its crystal clear water, coral reefs, and coconut trees.";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,11 +23,8 @@ class SaintMartinPage extends StatelessWidget {
 
             Stack(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 280,
-                  child: Image.asset('assets/images/saintmartin.jpg', fit: BoxFit.cover),
-                ),
+                Image.asset('assets/images/saintmartin.jpg', width: double.infinity, height: 280, fit: BoxFit.cover),
+
                 Positioned(
                   top: 50, left: 16,
                   child: GestureDetector(
@@ -28,12 +36,19 @@ class SaintMartinPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Positioned(
                   top: 50, right: 16,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                    child: Icon(Icons.favorite_border),
+                  child: GestureDetector(
+                    onTap: () => setState(() => isFavorite = !isFavorite),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.black,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -44,10 +59,8 @@ class SaintMartinPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text('Saint Martin', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
                   SizedBox(height: 10),
-
                   GestureDetector(
                     onTap: () async {
                       final url = Uri.parse("https://maps.google.com/?q=Saint+Martin+Island,Bangladesh");
@@ -61,16 +74,11 @@ class SaintMartinPage extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 16),
-                  Text(
-                    "Saint Martin is the only coral island in Bangladesh, located in the northeastern part of the Bay of Bengal. It is famous for its crystal clear water, coral reefs, and coconut trees.",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[700], height: 1.5),
-                  ),
+                  Text(description, style: TextStyle(fontSize: 15, color: Colors.grey[700], height: 1.5)),
                   SizedBox(height: 20),
                   Text('Explore In Saint Martin', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   SizedBox(height: 12),
-
                 ],
               ),
             ),
@@ -80,8 +88,8 @@ class SaintMartinPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  SpotCard(name: 'Cheradwip', imagePath: 'assets/images/spots/saintmartin/cheradwip.jpg'),
-                  SpotCard(name: 'Coral',     imagePath: 'assets/images/spots/saintmartin/coral.jpg'),
+                  SpotCard('Cheradwip', 'assets/images/spots/saintmartin/cheradwip.jpg'),
+                  SpotCard('Coral', 'assets/images/spots/saintmartin/coral.jpg'),
                 ],
               ),
             ),
@@ -95,17 +103,13 @@ class SaintMartinPage extends StatelessWidget {
 }
 
 class SpotCard extends StatelessWidget {
-  final String name;
-  final String imagePath;
-
-  SpotCard({required this.name, required this.imagePath});
+  final String name, imagePath;
+  SpotCard(this.name, this.imagePath);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
-      height: 200,
-      margin: EdgeInsets.only(right: 12),
+      width: 160, height: 200, margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
@@ -114,15 +118,11 @@ class SpotCard extends StatelessWidget {
           colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken),
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
-          ],
-        ),
+      padding: EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [Text(name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))],
       ),
     );
   }
