@@ -10,6 +10,7 @@ import 'saintmartin.dart';
 import 'srimongal.dart';
 import 'tour_wallet.dart';
 import 'tour_plan.dart';
+import 'accountPage.dart';
 
 final places = [
   {'name': "Cox's Bazar",  'tagline': "World's Longest Sea Beach",     'img': 'assets/images/coxsbazar.jpg'},
@@ -33,7 +34,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: currentIndex == 2 ? TourWalletPage(tourPlans: tourPlans, onAdd: (plan) {
+
+      body: currentIndex == 3 ? AccountPage()
+      : currentIndex == 2 ? TourWalletPage(tourPlans: tourPlans, onAdd: (plan) {
         setState(() {
           tourPlans.add(plan);
         });
@@ -53,7 +56,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(icon: Icon(Icons.home),                   label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.article),                label: 'Book Now'),
           BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Tour Wallet'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings),               label: 'More'),
+          BottomNavigationBarItem(icon: Icon(Icons.person),               label: 'Account'),
         ],
       ),
     );
