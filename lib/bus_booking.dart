@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//import 'hotel_booking.dart';
+import 'hotel_booking.dart';
 
 class BusBookingPage extends StatefulWidget {
   const BusBookingPage({super.key});
@@ -156,7 +156,7 @@ class _BusBookingPageState extends State<BusBookingPage> {
               ),
 
             ] else ...[
-              //HotelBookingPage(),
+              HotelBookingPage(),
             ],
 
           ],
