@@ -76,8 +76,8 @@ class _LogInScreenState extends State<LogInScreen> {
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Email",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "Email",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(
@@ -95,8 +95,8 @@ class _LogInScreenState extends State<LogInScreen> {
               obscureText: _isHidden,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "Password",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(

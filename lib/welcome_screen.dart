@@ -28,57 +28,47 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
 
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
 
-                  const Spacer(),
+                const Spacer(),
 
-                  SizedBox(
-                    width: double.infinity,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, _fadeRoute(const LogInScreen()));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Log In",
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, _fadeRoute(const LogInScreen()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    minimumSize: const Size(double.infinity, 52),
+                  ),
+                  child: const Text(
+                    'Log In',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
 
-                  const SizedBox(height: 18),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, _fadeRoute(const SignUpScreen()));
-                    },
-                    child: const Text(
-                      "Don't have an account? Sign Up",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
+                const SizedBox(height: 18),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, _fadeRoute(const SignUpScreen()));
+                  },
+                  child: const Text(
+                    "Don't have an account? Sign Up",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
+                ),
 
-                  const SizedBox(height: 40),
-                ],
-              ),
+                const SizedBox(height: 40),
+              ],
             ),
           ),
         ],

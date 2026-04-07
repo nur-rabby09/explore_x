@@ -14,11 +14,11 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
   String checkInDate  = 'Check-in';
   String checkOutDate = 'Check-out';
 
-  int adults   = 0;
+  int adults   = 1;
   int children = 0;
   int rooms    = 1;
 
-  // Opens date picker and saves to the correct variable
+
   void pickDate(String type) async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -38,7 +38,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
   void searchHotel() {
     if (hotelName.text.isEmpty || checkInDate == 'Check-in' || checkOutDate == 'Check-out') {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill Hotel Name, Check-in and Check-out')),
+        SnackBar(content: Text('Please fill the form')),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,46 +55,40 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          // Main Card//
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                // Hotel Name Field
                 TextField(
                   controller: hotelName,
                   decoration: InputDecoration(
                     labelText: 'Hotel Name',
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                   ),
                 ),
 
                 SizedBox(height: 16),
 
-                // Check-in and Check-out side by side
-                // Check-in and Check-out side by side
                 Row(
                   children: [
-
-                    // Check-in Button
-                    // Check-in Button
                     Expanded(
-                      child: OutlinedButton(
+                      child: OutlinedButton.icon(
                         onPressed: () => pickDate('checkin'),
-                        child: Text(checkInDate, style: TextStyle(color: Colors.black87)),
+                        icon: Icon(Icons.calendar_month, color: Colors.green, size: 18),
+                        label: Text(checkInDate, style: TextStyle(color: Colors.black),),
                       ),
                     ),
 
                     SizedBox(width: 10),
-
-                    // Check-out Button
                     Expanded(
-                      child: OutlinedButton(
+                      child: OutlinedButton.icon(
                         onPressed: () => pickDate('checkout'),
-                        child: Text(checkOutDate, style: TextStyle(color: Colors.black87)),
+                        icon: Icon((Icons.calendar_month), color: Colors.green, size: 18,),
+                        label: Text(checkOutDate, style: TextStyle(color: Colors.black87)),
                       ),
                     ),
 
@@ -102,54 +96,47 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
                 ),
 
                 SizedBox(height: 16),
-
-                // Adults, Children, Rooms counter
                 Container(
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     children: [
-
-                      // Adults Row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Adult',    style: TextStyle(fontSize: 16)),
                           Row(
                             children: [
-                              IconButton(icon: Icon(Icons.remove_circle_outline, color: Colors.green), onPressed: () { if (adults > 1)   setState(() => adults--);   }),
+                              IconButton(icon: Icon(Icons.remove_circle_outline,
+                                  color: Colors.green),
+                                  onPressed: () { if (adults > 1)   setState(() => adults--);   }),
+
                               Text('$adults',   style: TextStyle(fontSize: 16)),
-                              IconButton(icon: Icon(Icons.add_circle_outline,    color: Colors.green), onPressed: () =>                  setState(() => adults++)),
+
+                              IconButton(icon: Icon(
+                                  Icons.add_circle_outline,
+                                  color: Colors.green),
+                                  onPressed: () => { if (adults < 6)   setState(() => adults++) }),
                             ],
                           ),
                         ],
                       ),
 
-                      // Children Row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Children', style: TextStyle(fontSize: 16)),
-                          Row(
-                            children: [
-                              IconButton(icon: Icon(Icons.remove_circle_outline, color: Colors.green), onPressed: () { if (children > 0) setState(() => children--); }),
-                              Text('$children', style: TextStyle(fontSize: 16)),
-                              IconButton(icon: Icon(Icons.add_circle_outline,    color: Colors.green), onPressed: () =>                  setState(() => children++)),
-                            ],
-                          ),
-                        ],
-                      ),
-
-                      // Rooms Row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Rooms',    style: TextStyle(fontSize: 16)),
                           Row(
                             children: [
-                              IconButton(icon: Icon(Icons.remove_circle_outline, color: Colors.green), onPressed: () { if (rooms > 1)    setState(() => rooms--);    }),
+                              IconButton(icon: Icon(Icons.remove_circle_outline,
+                                  color: Colors.green),
+                                  onPressed: () { if (rooms > 1)  setState(() => rooms--);    }),
+
                               Text('$rooms',    style: TextStyle(fontSize: 16)),
-                              IconButton(icon: Icon(Icons.add_circle_outline,    color: Colors.green), onPressed: () =>                  setState(() => rooms++)),
+
+                              IconButton(icon: Icon(Icons.add_circle_outline,
+                                  color: Colors.green), onPressed: () =>
+                                  setState(() => rooms++)),
                             ],
                           ),
                         ],
@@ -162,8 +149,9 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
               ],
             ),
           ),
+
+
           SizedBox(height: 24),
-          // Search Hotel Button
           ElevatedButton(
             onPressed: searchHotel,
             style: ElevatedButton.styleFrom(

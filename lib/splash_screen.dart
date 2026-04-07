@@ -1,6 +1,5 @@
 import 'package:app/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,20 +16,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-    );
-
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 2600),
-      vsync: this,
+        duration: Duration(milliseconds: 2600),
+        vsync: this
     );
 
-    _scaleAnimation = Tween<double>(begin: 0, end: 1.0).animate(
+    _scaleAnimation = Tween<double>(begin: 0.2, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.elasticOut,
@@ -64,13 +55,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-      child: Scaffold(
+    return  Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Center(
@@ -80,7 +65,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             ),
           ),
         ),
-      ),
     );
   }
 }

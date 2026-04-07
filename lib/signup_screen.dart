@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(// creates user in Firebase with email and psss
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -55,9 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   _isLoading = false;
   });
   }
-
-
-  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            const SizedBox(height: 80),
+            const SizedBox(height: 100),
 
             const Text(
               "Let's Get Started",
@@ -85,8 +82,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _firstNameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: "First Name",
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      labelText: 'First Name',
+                      labelStyle: const TextStyle(color: Colors.grey),
                       filled: true,
                       fillColor: Colors.grey[900],
                       border: OutlineInputBorder(
@@ -102,8 +99,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _lastNameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: "Last Name",
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      labelText: "Last Name",
+                      labelStyle: const TextStyle(color: Colors.grey),
                       filled: true,
                       fillColor: Colors.grey[900],
                       border: OutlineInputBorder(
@@ -122,8 +119,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               controller: _usernameController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "User Name",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "User Name",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(
@@ -137,11 +134,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             TextField(
               controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Email",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "Email",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(
@@ -159,8 +155,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               obscureText: _hidePassword,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "Password",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(
@@ -169,7 +165,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(_hidePassword ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
-                  onPressed: () => setState(() => _hidePassword = !_hidePassword),
+                  onPressed: () =>setState((){
+                    _hidePassword = !_hidePassword;
+                  }
+                  ),
                 ),
               ),
             ),
@@ -182,8 +181,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               obscureText: _hideConfirmPassword,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Confirm Password",
-                hintStyle: const TextStyle(color: Colors.grey),
+                labelText: "Confirm Password",
+                labelStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.grey[900],
                 border: OutlineInputBorder(
@@ -203,7 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(350, 57.5),
+                  minimumSize: const Size(double.infinity, 52),
                 ),
                 onPressed: _isLoading ? null : _signUp,
                 child: _isLoading
